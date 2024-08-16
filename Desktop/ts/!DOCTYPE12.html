@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Activity Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        input[type="number"],
+        input[type="date"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Weekly Activity Tracker</h1>
+        <form id="activityForm">
+            <div class="form-group">
+                <label for="employeeId">Employee ID:</label>
+                <input type="text" id="employeeId" name="employeeId" required>
+            </div>
+            <div class="form-group">
+                <label for="projectName">Project Name:</label>
+                <input type="text" id="projectName" name="projectName" required>
+            </div>
+            <div class="form-group">
+                <label for="date">Date:</label>
+                <input type="date" id="date" name="date" required>
+            </div>
+            <div class="form-group">
+                <label for="hoursWorked">Hours Worked:</label>
+                <input type="number" id="hoursWorked" name="hoursWorked" step="0.1" min="0" required>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Add Entry">
+            </div>
+        </form>
+
+        <h2>Weekly Summary</h2>
+        <table id="summaryTable">
+            <thead>
+                <tr>
+                    <th>Employee ID</th>
+                    <th>Project Name</th>
+                    <th>Date</th>
+                    <th>Hours Worked</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Summary data will be inserted here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.getElementById('activityForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Get form values
+            const employeeId = document.getElementById('employeeId').value;
+            const projectName = document.getElementById('projectName').value;
+            const date = document.getElementById('date').value;
+            const hoursWorked = parseFloat(document.getElementById('hoursWorked').value);
+
+            // Create a new row in the summary table
+            const tableBody = document.querySelector('#summaryTable tbody');
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${employeeId}</td>
+                <td>${projectName}</td>
+                <td>${date}</td>
+                <td>${hoursWorked.toFixed(2)}</td>
+            `;
+            tableBody.appendChild(row);
+
+            // Clear the form
+            document.getElementById('activityForm').reset();
+        });
+    </script>
+</body>
+</html>
